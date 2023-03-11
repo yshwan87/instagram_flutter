@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "256283316140",
+    "project_id": "instagram-tutorial-d8171",
+    "storage_bucket": "instagram-tutorial-d8171.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256283316140:android:8aed36f9cd3a02cf6d3409",
+        "android_client_info": {
+          "package_name": "com.example.instagram_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256283316140-ujijl0uenbb5al7i4dbesppafgm503q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARaI8exadbN40MfVG5JFwmBEw2kQ8tznw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256283316140-ujijl0uenbb5al7i4dbesppafgm503q5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
