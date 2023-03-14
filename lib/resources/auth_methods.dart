@@ -34,9 +34,39 @@ class AuthMethods {
         });
         res = 'Success';
       }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-password') {
+        res = 'The provided password is invalid. It must be a string with at least six characters.';
+      } else if (e.code == 'invalid-email') {
+        res = 'The provided Email is invalid. It must be a string email address.';
+      }
     } catch (err) {
       res = err.toString();
     }
+    return res;
+  }
+
+  Future<String> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    String res = "Some error occurred";
+
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await _auth.signInWithEmailAndPassword(email: email, password: password);
+        res = 'Success';
+      } else {
+        res = 'Please enter all the field';
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+        res = 'Email or Password is not found';
+      }
+    } catch (err) {
+      res = err.toString();
+    }
+
     return res;
   }
 }
