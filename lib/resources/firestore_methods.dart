@@ -26,7 +26,7 @@ class FirestoreMethods {
         likes: [],
       );
 
-      _firestore.collection('post').doc(postId).set(post.toJson());
+      _firestore.collection('posts').doc(postId).set(post.toJson());
       res = 'Success';
     } catch (e) {
       res = e.toString();
