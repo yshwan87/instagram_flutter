@@ -4,7 +4,6 @@ import 'package:instagram_flutter/providers/user_provider.dart';
 import 'package:instagram_flutter/resources/firestore_methods.dart';
 import 'package:instagram_flutter/screens/comments_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
-import 'package:instagram_flutter/utils/utils.dart';
 import 'package:instagram_flutter/widgets/like_animation.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -30,18 +29,18 @@ class _PostCardState extends State<PostCard> {
   @override
   void initState() {
     super.initState();
-    getComment();
+    //getComment();
   }
 
-  void getComment() async {
-    try {
-      QuerySnapshot snap = await FirebaseFirestore.instance.collection('posts').doc(widget.snap['postId']).collection('comments').get();
-      commentsLeng = snap.docs.length;
-    } catch (e) {
-      showSnackBar(e.toString(), context);
-    }
-    setState(() {});
-  }
+//   void getComment() async {
+//     try {
+//       QuerySnapshot snap = await FirebaseFirestore.instance.collection('posts').doc(widget.snap['postId']).collection('comments').get();
+//       commentsLeng = snap.docs.length;
+//     } catch (e) {
+//       showSnackBar(e.toString(), context);
+//     }
+//     setState(() {});
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -254,12 +253,22 @@ class _PostCardState extends State<PostCard> {
                   onTap: () {},
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: Text(
-                      'View all $commentsLeng comments',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: secondaryColor,
-                      ),
+                    child: StreamBuilder(
+                      stream: FirebaseFirestore.instance.collection('posts').doc(widget.snap['postId']).collection('comments').orderBy('datePublished', descending: true).snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        return Text(
+                          'View all ${snapshot.data!.docs.length} comments',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: secondaryColor,
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
